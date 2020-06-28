@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as Http;
 import 'dart:convert';
 
+import 'state_wise_search.dart';
+
 String url = 'https://api.covid19india.org/data.json';
 List<StateData> statesData = [];
 
@@ -99,11 +101,22 @@ class _CovidHomeState extends State<CovidHome> {
                     controller: ScrollController(),
                     itemBuilder: (context, index) {
                       //print(snapShot.data[index]['state']);
-                      return StateData(
-                        states: snapShot.data[index]['state'],
-                        infected: snapShot.data[index]['confirmed'],
-                        recovered: snapShot.data[index]['recovered'],
-                        deceased: snapShot.data[index]['deaths'],
+                      return GestureDetector(
+                        child: StateData(
+                          states: snapShot.data[index]['state'],
+                          infected: snapShot.data[index]['confirmed'],
+                          recovered: snapShot.data[index]['recovered'],
+                          deceased: snapShot.data[index]['deaths'],
+                        ),
+                        onTap: () {
+                          print(snapShot.data[index]['state']);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => StateWiseSearchHomePage(),
+                            ),
+                          );
+                        },
                       );
                     },
                   ),
