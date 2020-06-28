@@ -28,7 +28,7 @@ class SearchTextField extends StatelessWidget {
           ),
           suffixIcon: Icon(Icons.search),
           border: InputBorder.none,
-          hintText: "Search here...",
+          hintText: "Enter State...",
           hintStyle: TextStyle(
             color: Colors.grey,
           ),

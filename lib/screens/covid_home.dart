@@ -21,12 +21,12 @@ class _CovidHomeState extends State<CovidHome> {
 
   Future<List<dynamic>> getCovidDataStates(String url) async {
     Http.Response dataResponse = await Http.get(url);
-    //var dataJson;
+
     List<dynamic> dataStats;
 
     if (dataResponse.statusCode == 200) {
       String dataResp = dataResponse.body;
-      //dataJson = jsonDecode(dataResp);
+
       CovidHome.map = json.decode(dataResp);
       dataStats = CovidHome.map['statewise'];
 
@@ -55,7 +55,6 @@ class _CovidHomeState extends State<CovidHome> {
       child: FutureBuilder(
         future: getCovidDataStates(url),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapShot) {
-          print(snapShot.hasData);
           if (snapShot.connectionState == ConnectionState.none &&
               snapShot.hasData == null) {
             return Container();

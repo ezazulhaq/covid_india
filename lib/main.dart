@@ -27,22 +27,6 @@ class MyHomePage extends StatelessWidget {
         title: Text(
           'COVID-19 India',
         ),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => StateWiseSearchHomePage(),
-                ),
-              );
-            },
-            child: Icon(
-              Icons.search,
-              size: 30.0,
-            ),
-          ),
-        ],
       ),
       body: CovidHome(),
     );
