@@ -22,7 +22,7 @@ class DistrictData extends StatelessWidget {
               AppData(
                 dataLabel: districts,
                 fontWeight: FontWeight.w500,
-                colour: Colors.black,
+                colour: Colors.blueGrey,
               ),
               AppData(
                 dataLabel: infected,

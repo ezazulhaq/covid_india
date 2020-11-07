@@ -1,4 +1,3 @@
-import 'package:covidindia/screens/state_wise_search.dart';
 import 'package:flutter/material.dart';
 import 'package:covidindia/screens/covid_home.dart';
 

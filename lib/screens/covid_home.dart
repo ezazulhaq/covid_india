@@ -1,12 +1,13 @@
+import 'package:covidindia/screens/state_wise_ui.dart';
 import 'package:covidindia/widgets/home/app_data.dart';
 import 'package:covidindia/widgets/home/covid_statewise_list.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as Http;
 import 'dart:convert';
 
-import 'state_wise_search.dart';
-
 String url = 'https://api.covid19india.org/data.json';
+String url1 = 'https://api.covid19india.org/state_district_wise.json';
+
 List<StateData> statesData = [];
 
 class CovidHome extends StatefulWidget {
@@ -44,14 +45,35 @@ class _CovidHomeState extends State<CovidHome> {
 
     setState(() {
       getCovidDataStates(url);
+      getListOfDistricts(url1);
     });
     return null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getListOfDistricts(url1);
+  }
+
+  Map<String, dynamic> mapStates;
+
+  // ignore: missing_return
+  Future<Map<String, dynamic>> getListOfDistricts(String url) async {
+    Http.Response response = await Http.get(url);
+    if (response.statusCode == 200) {
+      String data = response.body;
+
+      mapStates = json.decode(data);
+      //print(mapStates);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: _refresh,
+      color: Colors.white,
       child: FutureBuilder(
         future: getCovidDataStates(url),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapShot) {
@@ -99,7 +121,6 @@ class _CovidHomeState extends State<CovidHome> {
                     scrollDirection: Axis.vertical,
                     controller: ScrollController(),
                     itemBuilder: (context, index) {
-                      //print(snapShot.data[index]['state']);
                       return GestureDetector(
                         child: StateData(
                           states: snapShot.data[index]['state'],
@@ -108,13 +129,20 @@ class _CovidHomeState extends State<CovidHome> {
                           deceased: snapShot.data[index]['deaths'],
                         ),
                         onTap: () {
-                          print(snapShot.data[index]['state']);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => StateWiseSearchHomePage(),
-                            ),
-                          );
+                          if (snapShot.data[index]['state'] != 'Total') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => StateWiseUI(
+                                  state: snapShot.data[index]['state'],
+                                  infected: snapShot.data[index]['confirmed'],
+                                  recovered: snapShot.data[index]['recovered'],
+                                  deceased: snapShot.data[index]['deaths'],
+                                  districtData: mapStates,
+                                ),
+                              ),
+                            );
+                          }
                         },
                       );
                     },
