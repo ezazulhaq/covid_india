@@ -36,7 +36,7 @@ class CovidCounter extends StatelessWidget {
             counter,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 30.0,
+              fontSize: 25.0,
               color: color,
             ),
           ),

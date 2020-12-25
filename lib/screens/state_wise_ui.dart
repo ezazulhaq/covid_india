@@ -48,6 +48,9 @@ class _StateWiseUIState extends State<StateWiseUI> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
+                      SizedBox(
+                        height: 20.0,
+                      ),
                       Text(
                         widget.state,
                         style: TextStyle(
