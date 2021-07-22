@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -38,7 +40,6 @@ class _StateWiseSearchHomePageState extends State<StateWiseSearchHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getListOfStates(url);
   }
